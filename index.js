@@ -3,7 +3,6 @@ import { Routes } from "discord-api-types/v9";
 import dotenv from "dotenv";
 import commands from "./commands/index.js";
 
-// Loading the token from .env file
 dotenv.config();
 
 import {
