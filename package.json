@@ -1,5 +1,6 @@
 {
 	"type": "module",
+    "main": "index.js",
 	"dependencies": {
 		"@discordjs/rest": "^0.1.0-canary.0",
 		"discord-api-types": "^0.22.0",
@@ -8,6 +9,8 @@
 	},
 	"devDependencies": {
 		"@types/node": "^18.7.14",
+        "@typescript-eslint/eslint-plugin": "^5.36.1",
+        "@typescript-eslint/parser": "^5.36.1",
 		"eslint": "^8.23.0",
 		"nodemon": "^2.0.15",
 		"ts-node": "^10.9.1",
