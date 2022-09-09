@@ -1,13 +1,12 @@
 {
-	"type": "module",
+    "name": "coup-discord-bot",
+    "version": "1.0.0",
+    "description": "Discord Bot for coup the card game",
     "main": "index.js",
-	"dependencies": {
-		"@discordjs/rest": "^0.1.0-canary.0",
-		"discord-api-types": "^0.22.0",
-		"discord.js": "^13.1.0",
-		"dotenv": "^10.0.0"
+    "scripts": {
+        "start": "ts-node src/index.ts"
 	},
-	"devDependencies": {
+    "devDependencies": {
 		"@types/node": "^18.7.14",
         "@typescript-eslint/eslint-plugin": "^5.36.1",
         "@typescript-eslint/parser": "^5.36.1",
@@ -16,7 +15,10 @@
 		"ts-node": "^10.9.1",
 		"typescript": "^4.8.2"
 	},
-	"scripts": {
-		"start": "nodemon --exec node index.js"
+	"dependencies": {
+		"@discordjs/rest": "^0.1.0-canary.0",
+		"discord-api-types": "^0.22.0",
+		"discord.js": "^13.1.0",
+		"dotenv": "^10.0.0"
 	}
 }
