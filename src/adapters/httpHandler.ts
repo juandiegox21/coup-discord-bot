@@ -6,7 +6,7 @@ const handleHttpErrorMessage = (error: unknown, defaultMessage: string): string 
     if (error instanceof AxiosError) {
         const { status, data } = error.response as AxiosResponse;
 
-        if (status !== 422 && data) {
+        if (status !== 422) {
             return defaultMessage;
         }
 
