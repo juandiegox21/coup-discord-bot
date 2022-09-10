@@ -11,7 +11,7 @@ const token = process.env['TOKEN'];
 console.log("Bot is starting...");
 
 const client = new Client({
-	intents: [Intents.FLAGS.GUILDS]
+    intents: [Intents.FLAGS.GUILDS]
 });
 
 ready(client);
