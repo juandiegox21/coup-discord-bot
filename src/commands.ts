@@ -5,6 +5,7 @@ import { createGame } from "./commands/createGame";
 import { deleteGame } from "./commands/deleteGame";
 import { joinGame } from "./commands/joinGame";
 import { leaveGame } from "./commands/leaveGame";
+import { startGame } from "./commands/startGame";
 
 export const commands: Command[] = [
     ping,
@@ -13,4 +14,5 @@ export const commands: Command[] = [
     deleteGame,
     joinGame,
     leaveGame,
+    startGame,
 ];

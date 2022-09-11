@@ -37,4 +37,17 @@ export default class GameService {
             return handleHttpError(error, genericErrorMessage);
         }
     }
+
+    async startGame(gameId: number): Promise<HttpHandlerResponse> {
+        const genericErrorMessage = "Oops! something went wrong, the match was not started.";
+
+        const endpoint = `${this.endpoint}/${gameId}/start`
+
+        try {
+            const response = await AxiosAdapter.post(endpoint);
+            return response;
+        } catch (error) {
+            return handleHttpError(error, genericErrorMessage);
+        }
+    }
 }
