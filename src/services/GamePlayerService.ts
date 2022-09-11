@@ -19,4 +19,16 @@ export default class GamePlayerService {
             return handleHttpError(error, genericErrorMessage);
         }
     }
+
+    async deletePlayerGame(playerDiscordId: string): Promise<HttpHandlerResponse> {
+        const genericErrorMessage = "Oops! something went wrong, you were not able to join this game.";
+        const endpoint = `${this.endpoint}/${playerDiscordId}`;
+
+        try {
+            const response = await AxiosAdapter.delete(endpoint);
+            return response;
+        } catch (error) {
+            return handleHttpError(error, genericErrorMessage);
+        }
+    }
 }
