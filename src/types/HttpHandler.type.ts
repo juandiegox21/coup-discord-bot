@@ -11,3 +11,9 @@ export type HttpHandlerSuccessResponse = {
 export type HttpHandlerResponse = {
     data: HttpHandlerErrorResponse | HttpHandlerSuccessResponse
 };
+
+export type GamePlayerData = {
+    name: string;
+    discordId: string;
+    coins: number;
+};
