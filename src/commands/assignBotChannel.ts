@@ -3,14 +3,14 @@ import { Command } from "../command";
 import { STATE } from "../helpers/constants";
 import state from "../store/state";
 
-export const ping: Command = {
-    name: "ping",
-    description: "Replies with pong",
+export const assignBotChannel: Command = {
+    name: "assignbotchannel",
+    description: "Assigns a channel for the bot to interact",
     type: "CHAT_INPUT",
     run: async (client: Client, interaction: BaseCommandInteraction) => {
-        const currentGameId = await state.get(STATE.CURRENT_GAME_ID);
+        await state.set(STATE.BOT_CHANNEL_ID, "someid");
 
-        const content = `Pong ${currentGameId}`;
+        const content = `Bot has been assigned to channel name: something (ID: something)`;
 
         await interaction.followUp({
             ephemeral: true,
