@@ -23,10 +23,9 @@ export const createGame: Command = {
         const gameId = data.id;
         await state.set(STATE.CURRENT_GAME_ID, gameId);
 
-        const content = `Game has been created with ID: ${gameId}`;
+        const content = ':loudspeaker: A new game has started! /join';
 
         await interaction.followUp({
-            ephemeral: true,
             content
         });
     }
