@@ -4,6 +4,7 @@ import { inviteCoupToChannel } from "./commands/inviteCoupToChannel";
 import { createGame } from "./commands/createGame";
 import { deleteGame } from "./commands/deleteGame";
 import { joinGame } from "./commands/joinGame";
+import { leaveGame } from "./commands/leaveGame";
 
 export const commands: Command[] = [
     ping,
@@ -11,4 +12,5 @@ export const commands: Command[] = [
     createGame,
     deleteGame,
     joinGame,
+    leaveGame,
 ];
