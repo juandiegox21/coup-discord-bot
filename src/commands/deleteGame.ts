@@ -4,6 +4,8 @@ import { STATE } from "../helpers/constants";
 import GameService from "../services/GameService";
 import state from "../store/state";
 
+const gameService = new GameService();
+
 export const deleteGame: Command = {
     name: "deletegame",
     description: "Deletes current game",
@@ -17,8 +19,6 @@ export const deleteGame: Command = {
                 content: "There are no games active right now."
             });
         }
-
-        const gameService = new GameService();
 
         const { data } = await gameService.deleteGame(currentGameId);
 

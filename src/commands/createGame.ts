@@ -4,13 +4,13 @@ import { STATE } from "../helpers/constants";
 import GameService from "../services/GameService";
 import state from "../store/state";
 
+const gameService = new GameService();
+
 export const createGame: Command = {
     name: "creategame",
     description: "Creates a new game",
     type: "CHAT_INPUT",
     run: async (client: Client, interaction: BaseCommandInteraction) => {
-        const gameService = new GameService();
-
         const { data } = await gameService.createGame();
 
         if (data.error) {
