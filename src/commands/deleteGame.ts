@@ -4,13 +4,13 @@ import { STATE } from "../helpers/constants";
 import GameService from "../services/GameService";
 import state from "../store/state";
 
-const gameService = new GameService();
-
 export const deleteGame: Command = {
     name: "deletegame",
     description: "Deletes current game",
     type: "CHAT_INPUT",
     run: async (client: Client, interaction: BaseCommandInteraction) => {
+        const gameService = new GameService();
+
         const currentGameId = await state.get(STATE.CURRENT_GAME_ID);
 
         if (!currentGameId) {
