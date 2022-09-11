@@ -1,5 +1,6 @@
 import AxiosAdapter from "../adapters/AxiosAdapter";
-import { handleHttpErrorMessage } from "../adapters/httpHandler";
+import { handleHttpError } from "../adapters/httpHandler";
+import { HttpHandlerResponse } from "../types/HttpHandler.type";
 
 export default class GameService {
     endpoint: string;
@@ -8,15 +9,14 @@ export default class GameService {
         this.endpoint = "/api/v1/games";
     }
 
-    async createGame(): Promise<string> {
+    async createGame(): Promise<HttpHandlerResponse> {
         const genericErrorMessage = "Oops! something went wrong, game was not created.";
 
         try {
-            const { data } = await AxiosAdapter.post(this.endpoint);
-
-            return `Game has been created with ID: ${data.id}`;
+            const response = await AxiosAdapter.post(this.endpoint);
+            return response;
         } catch (error) {
-            return handleHttpErrorMessage(error, genericErrorMessage);
+            return handleHttpError(error, genericErrorMessage);
         }
     }
 }
