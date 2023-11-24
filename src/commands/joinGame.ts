@@ -1,4 +1,4 @@
-import { BaseCommandInteraction, Client } from "discord.js";
+import { CommandInteraction, Client, ApplicationCommandType } from "discord.js";
 import { Command } from "../command";
 import { STATE } from "../helpers/constants";
 import GamePlayerService from "../services/GamePlayerService";
@@ -7,8 +7,8 @@ import state from "../store/state";
 export const joinGame: Command = {
     name: "join",
     description: "Join to current game",
-    type: "CHAT_INPUT",
-    run: async (client: Client, interaction: BaseCommandInteraction) => {
+    type: ApplicationCommandType.ChatInput,
+    run: async (client: Client, interaction: CommandInteraction) => {
         const currentGameId = await state.get(STATE.CURRENT_GAME_ID);
 
         if (!currentGameId) {

@@ -1,4 +1,4 @@
-import { BaseCommandInteraction, Client, Interaction } from "discord.js";
+import { CommandInteraction, Client, Interaction, InteractionType } from "discord.js";
 import { commands } from "../commands";
 import { inviteCoupToChannel } from "../commands/inviteCoupToChannel";
 import { STATE } from "../helpers/constants";
@@ -6,8 +6,9 @@ import state from "../store/state";
 
 export default (client: Client): void => {
     client.on("interactionCreate", async (interaction: Interaction) => {
-        if (interaction.isCommand() || interaction.isContextMenu()) {
-            await handleSlashCommand(client, interaction);
+        if (interaction.type === InteractionType.ApplicationCommand) {
+            const commandInteraction = interaction as CommandInteraction;
+            await handleSlashCommand(client, commandInteraction);
         }
     });
 };
@@ -20,7 +21,7 @@ const channelExists = async (client: Client): Promise<boolean> => {
     return client.channels.cache.has(currentChannelId);
 };
 
-const handleSlashCommand = async (client: Client, interaction: BaseCommandInteraction): Promise<void> => {
+const handleSlashCommand = async (client: Client, interaction: CommandInteraction): Promise<void> => {
     const slashCommand = commands.find(c => c.name === interaction.commandName);
 
     if (!slashCommand) {
@@ -28,7 +29,9 @@ const handleSlashCommand = async (client: Client, interaction: BaseCommandIntera
         return;
     }
 
-    await interaction.deferReply();
+    if (!interaction.deferred && !interaction.replied) {
+        await interaction.deferReply();
+    }
 
     if (!isCommandToAssignBot(interaction.commandName)) {
         const isChannelValid = await channelExists(client);
@@ -39,5 +42,19 @@ const handleSlashCommand = async (client: Client, interaction: BaseCommandIntera
         }
     }
 
-    slashCommand.run(client, interaction);
+    try {
+        if (!isCommandToAssignBot(interaction.commandName)) {
+            const isChannelValid = await channelExists(client);
+
+            if (!isChannelValid) {
+                await interaction.editReply({ content: ":red_circle: COUP is not in a valid text channel, go into a VALID text channel and type /invitecoup" });
+                return;
+            }
+        }
+
+        slashCommand.run(client, interaction);
+    } catch (error) {
+        console.error('Error handling slash command:', error);
+        await interaction.followUp({ content: "An unexpected error occurred", ephemeral: true });
+    }
 };

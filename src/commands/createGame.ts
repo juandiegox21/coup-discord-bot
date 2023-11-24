@@ -1,4 +1,4 @@
-import { BaseCommandInteraction, Client } from "discord.js";
+import { CommandInteraction, Client, ApplicationCommandType } from "discord.js";
 import { Command } from "../command";
 import { STATE } from "../helpers/constants";
 import GameService from "../services/GameService";
@@ -7,8 +7,8 @@ import state from "../store/state";
 export const createGame: Command = {
     name: "creategame",
     description: "Creates a new game",
-    type: "CHAT_INPUT",
-    run: async (client: Client, interaction: BaseCommandInteraction) => {
+    type: ApplicationCommandType.ChatInput,
+    run: async (client: Client, interaction: CommandInteraction) => {
         const gameService = new GameService();
 
         const { data } = await gameService.createGame();

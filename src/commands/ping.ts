@@ -1,26 +1,26 @@
-import { BaseCommandInteraction, Client } from "discord.js";
+import { CommandInteraction, Client, ApplicationCommandType } from "discord.js";
 import { Command } from "../command";
 import generateCardEmoji from "../helpers/cardEmojiBuilder";
-import { EMOJIS } from "../helpers/constants";
+import { CARD_NAMES_TO_EMOJIS, STATE } from "../helpers/constants";
+import state from "../store/state";
+import { card } from "../types/coup";
 
 export const ping: Command = {
     name: "ping",
     description: "Replies with pong",
-    type: "CHAT_INPUT",
-    run: async (client: Client, interaction: BaseCommandInteraction) => {
-        const playerName = "Juan";
+    type: ApplicationCommandType.ChatInput,
+    run: async (client: Client, interaction: CommandInteraction) => {
+        // const cards: Array<card> = await state.get(STATE.LOADED_CARDS);
 
-        const backOfCard = generateCardEmoji(EMOJIS.BACK_OF_CARD_EMOJIS);
-        const contessaCard = generateCardEmoji(EMOJIS.CONTESSA_CARD_EMOJIS);
+        const matchCards = await state.get(STATE.PLAYERS_CARDS);
+        console.log(JSON.stringify(matchCards.assigned));
+        
+        const matchCardsString = JSON.stringify(matchCards, null, 2); // 'null, 2' for pretty printing
 
-        let content = `${playerName}\n`;
-        content += contessaCard.top + EMOJIS.WHITESPACES + backOfCard.top + "\n";
-        content += contessaCard.mid + EMOJIS.WHITESPACES + backOfCard.mid + "\n";
-        content += contessaCard.bottom + EMOJIS.WHITESPACES + backOfCard.bottom + "\n";
-
-        await interaction.followUp({
-            ephemeral: true,
-            content
-        });
+        if (interaction.deferred || interaction.replied) {
+            await interaction.editReply({ content: matchCardsString });
+        } else {
+            await interaction.reply({ content: matchCardsString });
+        }
     }
 };

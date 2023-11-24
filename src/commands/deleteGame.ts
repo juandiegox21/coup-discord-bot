@@ -1,14 +1,14 @@
-import { BaseCommandInteraction, Client } from "discord.js";
+import { CommandInteraction, Client, ApplicationCommandType } from "discord.js";
 import { Command } from "../command";
 import { STATE } from "../helpers/constants";
 import GameService from "../services/GameService";
 import state from "../store/state";
 
-export const deleteGame: Command = {
-    name: "deletegame",
-    description: "Deletes current game",
-    type: "CHAT_INPUT",
-    run: async (client: Client, interaction: BaseCommandInteraction) => {
+export const endGame: Command = {
+    name: "endgame",
+    description: "Ends current game",
+    type: ApplicationCommandType.ChatInput,
+    run: async (client: Client, interaction: CommandInteraction) => {
         const gameService = new GameService();
 
         const currentGameId = await state.get(STATE.CURRENT_GAME_ID);
@@ -20,7 +20,7 @@ export const deleteGame: Command = {
             });
         }
 
-        const { data } = await gameService.deleteGame(currentGameId);
+        const { data } = await gameService.softDeleteGame(currentGameId);
 
         if (data.error) {
             return interaction.followUp({
@@ -30,6 +30,8 @@ export const deleteGame: Command = {
         }
 
         await state.delete(STATE.CURRENT_GAME_ID);
+        await state.delete(STATE.PLAYERS_CARDS);
+
 
         const content = `:x: Game with ID ${data.id} has ended`;
 
