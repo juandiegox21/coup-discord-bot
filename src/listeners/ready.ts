@@ -17,8 +17,9 @@ export default (client: Client): void => {
         console.log("Loading card attributes...");
         
         const gameService = new GameService();
-        const { data } = await gameService.loadCardAttributes();
 
-        await state.set(STATE.LOADED_CARDS, data);
+        const { data: cardAttributesData } = await gameService.loadCardAttributes();
+
+        await state.set(STATE.LOADED_CARDS, cardAttributesData);
     });
 };

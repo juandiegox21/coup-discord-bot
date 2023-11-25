@@ -4,7 +4,8 @@
     "description": "Discord Bot for coup the card game",
     "main": "index.js",
     "scripts": {
-        "start": "ts-node src/index.ts"
+        "start": "ts-node src/index.ts",
+        "startdev": "npx nodemon src/index.ts"
     },
     "devDependencies": {
         "@types/node": "^18.7.14",

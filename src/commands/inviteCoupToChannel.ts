@@ -8,6 +8,8 @@ export const inviteCoupToChannel: Command = {
     description: "Registers the bot into the channel where interactions will occur",
     type: ApplicationCommandType.ChatInput,
     run: async (client: Client, interaction: CommandInteraction) => {
+        await interaction.deferReply();
+
         const { id, name } = interaction.channel as GuildChannel;
 
         await state.set(STATE.BOT_CHANNEL_ID, id);

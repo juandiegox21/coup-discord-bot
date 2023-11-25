@@ -9,13 +9,13 @@ export const createGame: Command = {
     description: "Creates a new game",
     type: ApplicationCommandType.ChatInput,
     run: async (client: Client, interaction: CommandInteraction) => {
-        const gameService = new GameService();
+        await interaction.deferReply();
 
+        const gameService = new GameService();
         const { data } = await gameService.createGame();
 
         if (data.error) {
             return interaction.followUp({
-                ephemeral: true,
                 content: data.error
             });
         }

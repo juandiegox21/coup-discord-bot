@@ -1,12 +1,18 @@
 import AxiosAdapter from "../adapters/AxiosAdapter";
 import { handleHttpError } from "../adapters/httpHandler";
 import { GamePlayerData, HttpHandlerResponse } from "../types/HttpHandler.type";
+import { gamePlayers } from "../types/coup";
 
 export default class GamePlayerService {
     endpoint: string;
 
     constructor(gameId: number) {
         this.endpoint = `/api/v1/games/${gameId}/players`;
+    }
+
+    async getPlayersGame(): Promise<gamePlayers[]> {
+        const response = await AxiosAdapter.get(this.endpoint);
+        return response.data;
     }
 
     async createPlayerGame(playerData: GamePlayerData): Promise<HttpHandlerResponse> {

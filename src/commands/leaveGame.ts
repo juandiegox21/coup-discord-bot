@@ -9,12 +9,20 @@ export const leaveGame: Command = {
     description: "Leave current game",
     type: ApplicationCommandType.ChatInput,
     run: async (client: Client, interaction: CommandInteraction) => {
+        await interaction.deferReply();
+
         const currentGameId = await state.get(STATE.CURRENT_GAME_ID);
+        const hasGameStarted = await state.get(STATE.HAS_GAME_STARTED);
 
         if (!currentGameId) {
             return interaction.followUp({
-                ephemeral: true,
                 content: "There are no games active right now."
+            });
+        }
+
+        if (hasGameStarted) {
+            return interaction.followUp({
+                content: "You can't leave a game that has already started."
             });
         }
 
@@ -26,7 +34,6 @@ export const leaveGame: Command = {
 
         if (data.error) {
             return interaction.followUp({
-                ephemeral: true,
                 content: data.error
             });
         }

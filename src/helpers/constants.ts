@@ -3,6 +3,8 @@ const STATE = {
     CURRENT_GAME_ID: 'current_game_id',
     LOADED_CARDS: 'loaded_cards',
     PLAYERS_CARDS: 'players_cards',
+    HAS_GAME_STARTED: 'has_game_started',
+    GAME_PLAYERS: 'game_players',
 };
 
 const BACK_OF_CARD_EMOJIS: Array<string> = [
@@ -79,8 +81,29 @@ const CARD_NAMES_TO_EMOJIS = {
     'Captain': CAPTAIN_CARD_EMOJIS,
 };
 
+const FULL_CARD_EMOJIS_ID = {
+    duke: '1177756488014508113',
+    captain: '1177756490157797527',
+    assassin: '1177756491344773120',
+    ambassador: '1177756492535975936',
+    contessa: '1177756488933048361'
+}
+
+const BUTTON_INTERACTION_IDS = {
+    GET_CARDS_BUTTON_ID: 'getCardsButtonId',
+    INCOME_BUTTON_ID: 'incomeButtonId',
+    FOREIGN_AID_BUTTON_ID: 'foreignAidButtonId',
+    COUP_BUTTON_ID: 'coupButtonId',
+    DUKE_ACTION_BUTTON_ID: 'dukeActionButtonId',
+    CAPTAIN_ACTION_BUTTON_ID: 'captainActionButtonId',
+    ASSASSIN_ACTION_BUTTON_ID: 'assassinActionButtonId',
+    AMBASSADOR_ACTION_BUTTON_ID: 'ambassadorActionButtonId'
+};
+
 export {
     STATE,
     EMOJIS,
-    CARD_NAMES_TO_EMOJIS
+    CARD_NAMES_TO_EMOJIS,
+    FULL_CARD_EMOJIS_ID,
+    BUTTON_INTERACTION_IDS
 }

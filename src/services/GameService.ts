@@ -57,4 +57,15 @@ export default class GameService {
             return handleHttpError(error, genericErrorMessage);
         }
     }
+
+    async getActiveGame(): Promise<HttpHandlerResponse> {
+        const genericErrorMessage = "Oops! something went wrong, the active game was not retrieved.";
+
+        try {
+            const response = await AxiosAdapter.get(this.endpoint);
+            return response;
+        } catch (error) {
+            return handleHttpError(error, genericErrorMessage);
+        }
+    }
 }

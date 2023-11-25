@@ -32,3 +32,22 @@ export type gameCard = {
     gamePlayerId: number | null,
     gamePlayerDiscordId: string | null
 };
+
+export type gamePlayerCard = {
+    id: number,
+    cardId: number,
+    gameId: number,
+    gamePlayerId: number | null,
+    isCardRevealed: boolean
+};
+
+export type gamePlayers = {
+    id: number,
+    name: string,
+    discordId: string,
+    coins: number,
+    isWinner: boolean,
+    dateJoined: Date,
+    gameId: number,
+    gamePlayerCard: gameCard[]
+}

@@ -1,5 +1,6 @@
+import GamePlayerService from "../services/GamePlayerService";
 import state from "../store/state";
-import { card, gameCard } from "../types/coup";
+import { card, gameCard, gamePlayers } from "../types/coup";
 import { STATE } from "./constants";
 
 const getCardsByUserId = async (userDiscordId: string) => {
@@ -14,6 +15,17 @@ const getCardsByUserId = async (userDiscordId: string) => {
     ];
 };
 
+const getPlayersFromGame = async (gameId: number): Promise<gamePlayers[]> => {
+    const gamePlayerService = new GamePlayerService(gameId);
+    const players = await gamePlayerService.getPlayersGame();
+
+    return players;
+};
+
+const formatUserMention = (userDiscordId: string) => `<@${userDiscordId}>`;
+
 export {
-    getCardsByUserId
+    getCardsByUserId,
+    getPlayersFromGame,
+    formatUserMention
 }

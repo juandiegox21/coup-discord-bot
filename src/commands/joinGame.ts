@@ -9,11 +9,12 @@ export const joinGame: Command = {
     description: "Join to current game",
     type: ApplicationCommandType.ChatInput,
     run: async (client: Client, interaction: CommandInteraction) => {
+        await interaction.deferReply();
+
         const currentGameId = await state.get(STATE.CURRENT_GAME_ID);
 
         if (!currentGameId) {
             return interaction.followUp({
-                ephemeral: true,
                 content: "There are no games active right now."
             });
         }
@@ -32,7 +33,6 @@ export const joinGame: Command = {
 
         if (data.error) {
             return interaction.followUp({
-                ephemeral: true,
                 content: data.error
             });
         }
