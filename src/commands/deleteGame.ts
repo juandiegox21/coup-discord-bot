@@ -35,6 +35,7 @@ export const endGame: Command = {
         await state.set(STATE.HAS_GAME_STARTED, false);
         await state.delete(STATE.CURRENT_GAME_ID);
         await state.delete(STATE.PLAYERS_CARDS);
+        await state.delete(STATE.GAME_PLAYERS);
 
         await interaction.followUp({
             content

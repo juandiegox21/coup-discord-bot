@@ -5,6 +5,7 @@ const STATE = {
     PLAYERS_CARDS: 'players_cards',
     HAS_GAME_STARTED: 'has_game_started',
     GAME_PLAYERS: 'game_players',
+    PLAYER_TURN_DISCORD_ID: 'player_turn_discord_id',
 };
 
 const BACK_OF_CARD_EMOJIS: Array<string> = [

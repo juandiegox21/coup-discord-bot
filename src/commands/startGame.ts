@@ -4,7 +4,7 @@ import { STATE } from "../helpers/constants";
 import GameService from "../services/GameService";
 import state from "../store/state";
 import { formatUserMention, getPlayersFromGame } from "../helpers/utils";
-import GameTurnActionMenu from "../components/GameTurnActionMenu";
+import gameTurnActionMenu from "../components/gameTurnActionMenu";
 
 export const startGame: Command = {
     name: "startgame",
@@ -43,17 +43,18 @@ export const startGame: Command = {
         });
 
         const userMention = formatUserMention(gamePlayers[0].discordId);
-        const turnMsg = `:video_game: Let's play! it's ${userMention}'s turn, please wait...`;
+        const turnMsg = `:video_game: Let's play! ${userMention} please select an action...`;
 
-        await interaction.followUp({
-            content: turnMsg
-        });
+        await state.set(STATE.PLAYER_TURN_DISCORD_ID, gamePlayers[0].discordId);
 
-        await interaction.followUp({
-            ephemeral: true,
+        await interaction.channel?.send({
+            content: turnMsg,
             components: [
-                ...GameTurnActionMenu()
-            ]
+                ...gameTurnActionMenu()
+            ],
+            allowedMentions: {
+                users: [gamePlayers[0].discordId]
+            }
         });
     }
 };

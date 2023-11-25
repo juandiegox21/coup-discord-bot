@@ -1,6 +1,6 @@
 import { CommandInteraction, Client, ApplicationCommandType } from "discord.js";
 import { Command } from "../command";
-import GameTurnActionMenu from "../components/GameTurnActionMenu";
+import gameTurnActionMenu from "../components/gameTurnActionMenu";
 
 export const ping: Command = {
     name: "ping",
@@ -14,7 +14,7 @@ export const ping: Command = {
         await interaction.followUp({
             content: turnMsg,
             components: [
-                ...GameTurnActionMenu()
+                ...gameTurnActionMenu()
             ]
         });
     }

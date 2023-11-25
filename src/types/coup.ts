@@ -41,7 +41,7 @@ export type gamePlayerCard = {
     isCardRevealed: boolean
 };
 
-export type gamePlayers = {
+export type gamePlayer = {
     id: number,
     name: string,
     discordId: string,
