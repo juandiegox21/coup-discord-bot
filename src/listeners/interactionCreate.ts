@@ -1,10 +1,11 @@
 import { CommandInteraction, Client, Interaction, InteractionType, ButtonInteraction } from "discord.js";
 import { commands } from "../commands";
 import { inviteCoupToChannel } from "../commands/inviteCoupToChannel";
-import { BUTTON_INTERACTION_IDS, STATE } from "../helpers/constants";
+import { BUTTON_ACTIONS_INTERACTION_IDS, STATE } from "../helpers/constants";
 import state from "../store/state";
 import replyWithUserCards from "../replies/replyWithUserCards";
-import { formatUserMention } from "../helpers/utils";
+import { isPlayersTurn } from "../helpers/utils";
+import replyToActions from "../replies/replyToActions";
 
 export default (client: Client): void => {
     client.on("interactionCreate", async (interaction: Interaction) => {
@@ -28,47 +29,19 @@ const channelExists = async (client: Client): Promise<boolean> => {
 };
 
 const handleButtonInteraction = async (interaction: ButtonInteraction) => {
-    switch (interaction.customId) {
-        case BUTTON_INTERACTION_IDS.GET_CARDS_BUTTON_ID:
-            replyWithUserCards(interaction)
-            break;
-        case BUTTON_INTERACTION_IDS.INCOME_BUTTON_ID:
-            await interaction.reply({ 
-                content: `${formatUserMention(interaction.user.id)} has chosen Income!`
-            });
-            break;
-        case BUTTON_INTERACTION_IDS.FOREIGN_AID_BUTTON_ID:
-            await interaction.reply({ 
-                content: `${formatUserMention(interaction.user.id)} has chosen Foreign Aid!`
-            });
-            break;
-        case BUTTON_INTERACTION_IDS.COUP_BUTTON_ID:
-            await interaction.reply({ 
-                content: `${formatUserMention(interaction.user.id)} has chosen Coup!`
-            });
-            break;
-        case BUTTON_INTERACTION_IDS.DUKE_ACTION_BUTTON_ID:
-            await interaction.reply({ 
-                content: `${formatUserMention(interaction.user.id)} has chosen Duke!`
-            });
-            break;
-        case BUTTON_INTERACTION_IDS.CAPTAIN_ACTION_BUTTON_ID:
-            await interaction.reply({ 
-                content: `${formatUserMention(interaction.user.id)} has chosen Captain!`
-            });
-            break;
-        case BUTTON_INTERACTION_IDS.ASSASSIN_ACTION_BUTTON_ID:
-            await interaction.reply({ 
-                content: `${formatUserMention(interaction.user.id)} has chosen Assassin!`
-            });
-            break;
-        case BUTTON_INTERACTION_IDS.AMBASSADOR_ACTION_BUTTON_ID:
-            await interaction.reply({ 
-                content: `${formatUserMention(interaction.user.id)} has chosen Ambassador!`
-            });
-            break;
-        default:
-            break;
+    if (interaction.customId === BUTTON_ACTIONS_INTERACTION_IDS.GET_CARDS_BUTTON_ID) {
+        await replyWithUserCards(interaction);
+        return;
+    }
+
+    if (interaction.customId.startsWith('action')) {
+        if (!await isPlayersTurn(interaction.user.id)) {
+            await interaction.deferUpdate();
+            return;
+        }
+
+        await replyToActions(interaction);
+        return;
     }
 };
 

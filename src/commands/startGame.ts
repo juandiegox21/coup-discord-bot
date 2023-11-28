@@ -3,8 +3,7 @@ import { Command } from "../command";
 import { STATE } from "../helpers/constants";
 import GameService from "../services/GameService";
 import state from "../store/state";
-import { formatUserMention, getPlayersFromGame } from "../helpers/utils";
-import gameTurnActionMenu from "../components/gameTurnActionMenu";
+import { getPlayersFromGame, nextPlayerTurn, sendPlayerTurnMessage } from "../helpers/utils";
 
 export const startGame: Command = {
     name: "startgame",
@@ -42,19 +41,7 @@ export const startGame: Command = {
             content
         });
 
-        const userMention = formatUserMention(gamePlayers[0].discordId);
-        const turnMsg = `:video_game: Let's play! ${userMention} please select an action...`;
-
-        await state.set(STATE.PLAYER_TURN_DISCORD_ID, gamePlayers[0].discordId);
-
-        await interaction.channel?.send({
-            content: turnMsg,
-            components: [
-                ...gameTurnActionMenu()
-            ],
-            allowedMentions: {
-                users: [gamePlayers[0].discordId]
-            }
-        });
+        const playerTurn = await nextPlayerTurn();
+        await sendPlayerTurnMessage(interaction, playerTurn);
     }
 };

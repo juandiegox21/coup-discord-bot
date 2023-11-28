@@ -90,21 +90,21 @@ const FULL_CARD_EMOJIS_ID = {
     contessa: '1177756488933048361'
 }
 
-const BUTTON_INTERACTION_IDS = {
+const BUTTON_ACTIONS_INTERACTION_IDS = {
     GET_CARDS_BUTTON_ID: 'getCardsButtonId',
-    INCOME_BUTTON_ID: 'incomeButtonId',
-    FOREIGN_AID_BUTTON_ID: 'foreignAidButtonId',
-    COUP_BUTTON_ID: 'coupButtonId',
-    DUKE_ACTION_BUTTON_ID: 'dukeActionButtonId',
-    CAPTAIN_ACTION_BUTTON_ID: 'captainActionButtonId',
-    ASSASSIN_ACTION_BUTTON_ID: 'assassinActionButtonId',
-    AMBASSADOR_ACTION_BUTTON_ID: 'ambassadorActionButtonId'
-};
+    INCOME_BUTTON_ID: 'actionIncomeButtonId',
+    FOREIGN_AID_BUTTON_ID: 'actionForeignAidButtonId',
+    COUP_BUTTON_ID: 'actionCoupButtonId',
+    DUKE_ACTION_BUTTON_ID: 'actionDukeButtonId',
+    CAPTAIN_ACTION_BUTTON_ID: 'actionCaptainButtonId',
+    ASSASSIN_ACTION_BUTTON_ID: 'actionAssassinButtonId',
+    AMBASSADOR_ACTION_BUTTON_ID: 'actionAmbassadorButtonId'
+}
 
 export {
     STATE,
     EMOJIS,
     CARD_NAMES_TO_EMOJIS,
     FULL_CARD_EMOJIS_ID,
-    BUTTON_INTERACTION_IDS
+    BUTTON_ACTIONS_INTERACTION_IDS
 }
